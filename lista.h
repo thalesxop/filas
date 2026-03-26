@@ -9,120 +9,71 @@
  * @brief Estrutura que gerencia um array dinâmico como uma lista sequencial.
  */
 typedef struct {
-    int tamanho;    // Capacidade máxima de elementos no array
-    int ocupacao;   // Quantidade atual de elementos na lista
-    int *array;     // Ponteiro para o vetor de dados (alocação dinâmica)
+    int tamanho;    // Capacidade máxima
+    int ocupacao;   // Quantidade atual de elementos
+    int *array;     // Ponteiro para os dados
 } TLista;
 
-/*=========================================================
-    FUNÇÃO: inicializarLista
-    DESCRIÇÃO: Aloca a memória para o array e define o tamanho.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct que será inicializada.
-        2 - tamanho: quantidade de elementos que a lista contém.
-    RETORNO: Nenhum (void).
-  =========================================================*/
+/* ========================================================================= */
+
+// Função: Inicializa a lista alocando memória para o array e definindo o tamanho.
+// Parâmetros: ponteiro para a lista (TLista *) e tamanho máximo (int).
+// Retorno: Nenhum (void).
 void inicializarLista(TLista * const lista, int tamanho);
 
-/*=========================================================
-    FUNÇÃO: mostrarDadosLista
-    DESCRIÇÃO: Exibe as informações técnicas da struct (Metadados).
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct com os dados da lista.
-    RETORNO: Nenhum (void).
-  =========================================================*/
-void mostrarDadosLista(TLista const * const lista);
-
-/*=========================================================
-    FUNÇÃO: mostrarLista
-    DESCRIÇÃO: Percorre o array e imprime os elementos na tela ou { } se vazia.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct com os dados da lista.
-    RETORNO: Nenhum (void).
-  =========================================================*/
-void mostrarLista(TLista const * const lista);
-
-/*=========================================================
-    FUNÇÃO: liberarLista
-    DESCRIÇÃO: Libera o espaço de memória usado pelo array dinâmico.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct com os dados da lista.
-    RETORNO: Nenhum (void).
-  =========================================================*/
+// Função: Desaloca a memória do array e reseta a ocupação e o tamanho.
+// Parâmetros: ponteiro para a lista (TLista *).
+// Retorno: Nenhum (void).
 void liberarLista(TLista * const lista);
 
-/*=========================================================
-    FUNÇÃO: listaEstaVazia
-    DESCRIÇÃO: Verifica se a lista possui elementos armazenados.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct com os dados da lista.
-    RETORNO: 1 se estiver vazia, 0 se não estiver vazia.
-  =========================================================*/
+// Função: Exibe o tamanho, a ocupação e o endereço de memória do array da lista.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: Nenhum (void).
+void mostrarDadosLista(TLista const * const lista);
+
+// Função: Percorre o array e imprime os elementos na tela no formato { 1, 2, 3 }.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: Nenhum (void).
+void mostrarLista(TLista const * const lista);
+
+// Função: Verifica se a lista não possui nenhum elemento inserido.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: 1 se estiver vazia, 0 se tiver elementos (int).
 int listaEstaVazia(TLista const * const lista);
 
-/*=========================================================
-    FUNÇÃO: listaEstaCheia
-    DESCRIÇÃO: Verifica se a ocupação atingiu o limite máximo (tamanho).
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct com os dados da lista.
-    RETORNO: 1 se estiver cheia, 0 se não estiver cheia.
-  =========================================================*/
+// Função: Verifica se a quantidade de elementos atingiu o limite máximo da lista.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: 1 se estiver cheia, 0 se houver espaço (int).
 int listaEstaCheia(TLista const * const lista);
 
-/*=========================================================
-    FUNÇÃO: inserirInicioLista
-    DESCRIÇÃO: Insere um elemento na posição 0 e desloca os outros.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct da lista.
-        2 - elemento: valor inteiro a ser inserido.
-    RETORNO: Nenhum (void).
-  =========================================================*/
-void inserirInicioLista(TLista * const lista, int elemento);
+// Função: Insere um elemento na posição 0, deslocando os existentes para a direita.
+// Parâmetros: ponteiro para a lista (TLista *) e o valor a inserir (int).
+// Retorno: Nenhum (void).
+void inserirInicio(TLista * const lista, int elemento);
 
-/*=========================================================
-    FUNÇÃO: inserirFimLista
-    DESCRIÇÃO: Adiciona um elemento na última posição livre.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct da lista.
-        2 - elemento: valor inteiro a ser inserido.
-    RETORNO: Nenhum (void).
-  =========================================================*/
+// Função: Adiciona um elemento na última posição disponível da lista.
+// Parâmetros: ponteiro para a lista (TLista *) e o valor a inserir (int).
+// Retorno: Nenhum (void).
 void inserirFimLista(TLista * const lista, int elemento);
 
-/*=========================================================
-    FUNÇÃO: acessarInicioLista
-    DESCRIÇÃO: Recupera o valor do primeiro elemento da lista (índice 0).
-    PARAMETROS: 
-        1 - lista: ponteiro constante para a struct da lista.
-    RETORNO: O valor inteiro do início ou -1 se estiver vazia.
-  =========================================================*/
-int acessarInicioLista(TLista const * const lista);
+// Função: Retorna o valor que está armazenado no primeiro índice (0) da lista.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: O valor inteiro do início ou -1 se a lista estiver vazia (int).
+int acessarInicio(const TLista *lista);
 
-/*=========================================================
-    FUNÇÃO: acessarFimLista
-    DESCRIÇÃO: Recupera o valor do último elemento inserido.
-    PARAMETROS: 
-        1 - lista: ponteiro constante para a struct da lista.
-    RETORNO: O valor inteiro do fim ou -1 se estiver vazia.
-  =========================================================*/
+// Função: Retorna o valor que está na última posição ocupada da lista.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: O valor inteiro do fim ou -1 se a lista estiver vazia (int).
 int acessarFimLista(TLista const * const lista);
 
-/*=========================================================
-    FUNÇÃO: retirarInicioLista
-    DESCRIÇÃO: Remove o primeiro elemento e desloca o restante para a esquerda.
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct da lista.
-    RETORNO: Nenhum (void).
-  =========================================================*/
-void retirarInicioLista(TLista * const lista);
+// Função: Remove o primeiro elemento e desloca todos os outros para a esquerda.
+// Parâmetros: ponteiro para a lista (TLista *).
+// Retorno: Nenhum (void).
+void retirarInicio(TLista * const lista);
 
-/*=========================================================
-    FUNÇÃO: retirarFimlista
-    DESCRIÇÃO: Remove o último elemento da lista (decrementa ocupação).
-    PARAMETROS: 
-        1 - lista: ponteiro para a struct da lista.
-    RETORNO: Nenhum (void).
-  =========================================================*/
+// Função: Remove o último elemento apenas decrementando a contagem de ocupação.
+// Parâmetros: ponteiro para a lista (TLista *).
+// Retorno: Nenhum (void).
 void retirarFimlista(TLista * const lista);
 
 #endif
