@@ -74,10 +74,8 @@ int listaEstaCheia(TLista const * const lista){
     return (lista->ocupacao == lista->tamanho);
 }
 
-/* * Função: Adiciona um elemento ao final da lista.
- * Parâmetros: ponteiro para a lista (TLista *) e valor (int).
- * Retorno: Nenhum (void).
- */
+/* ================= OPERAÇÕES DE FIM ================= */
+
 void inserirFimLista(TLista * const lista, int elemento){
     if(listaEstaCheia(lista)){
         printf("Lista cheia!\n");
@@ -87,71 +85,78 @@ void inserirFimLista(TLista * const lista, int elemento){
     lista->ocupacao++;
 }
 
-/* * Função: Retorna o valor do último elemento.
- * Parâmetros: ponteiro constante para a lista (TLista *).
- * Retorno: valor do fim ou -1 se vazia (int).
- */
 int acessarFimLista(TLista const * const lista){
-    if(listaEstaVazia(lista)){
-        printf("Lista vazia!\n");
-        return -1;
-    }
+    if(listaEstaVazia(lista)) return -1;
     return lista->array[lista->ocupacao - 1];
 }
 
-/* * Função: Remove o último elemento da lista.
- * Parâmetros: ponteiro para a lista (TLista *).
- * Retorno: Nenhum (void).
- */
 void retirarFimlista(TLista * const lista){
-    if(listaEstaVazia(lista)){
-        printf("Lista vazia!\n");
-        return;
-    }
+    if(listaEstaVazia(lista)) return;
     lista->ocupacao--;
 }
 
-/* * Função: Insere um elemento na posição zero e desloca os demais.
- * Parâmetros: ponteiro para a lista (TLista *) e valor (int).
- * Retorno: Nenhum (void).
- */
-void inserirInicio(TLista * const lista, int elemento){
-    if(listaEstaCheia(lista)){
-        printf("Lista cheia!\n");
-        return;
-    }
+/* ================= OPERAÇÕES DE INÍCIO ================= */
 
+void inserirInicio(TLista * const lista, int elemento){
+    if(listaEstaCheia(lista)) return;
     for(int i = lista->ocupacao; i > 0; i--){
         lista->array[i] = lista->array[i - 1];
     }
-
     lista->array[0] = elemento;
     lista->ocupacao++;
 }
 
-/* * Função: Retorna o valor do primeiro elemento.
- * Parâmetros: ponteiro constante para a lista (TLista *).
- * Retorno: valor do início ou -1 se vazia (int).
- */
 int acessarInicio(const TLista *lista){
-    if(listaEstaVazia(lista)){
-        printf("Lista vazia!\n");
-        return -1;
-    }
+    if(listaEstaVazia(lista)) return -1;
     return lista->array[0];
 }
 
-/* * Função: Remove o primeiro elemento e reorganiza a lista.
- * Parâmetros: ponteiro para a lista (TLista *).
- * Retorno: Nenhum (void).
- */
 void retirarInicio(TLista * const lista){
-    if(listaEstaVazia(lista)){
-        printf("Lista vazia!\n");
+    if(listaEstaVazia(lista)) return;
+    for(int i = 0; i < lista->ocupacao - 1; i++){
+        lista->array[i] = lista->array[i + 1];
+    }
+    lista->ocupacao--;
+}
+
+/* ================= OPERAÇÕES POR POSIÇÃO ================= */
+
+void inserirNaPosicao(TLista * const lista, int posicao, int elemento) {
+    if (listaEstaCheia(lista)) {
+        printf("Lista cheia!\n");
         return;
     }
-    for(int aux = 0; aux < lista->ocupacao - 1; aux++){
-        lista->array[aux] = lista->array[aux + 1];
+    if (posicao < 0 || posicao > lista->ocupacao) {
+        printf("Posicao invalida!\n");
+        return;
+    }
+    int p = lista->ocupacao; 
+    while (p != posicao) {
+        lista->array[p] = lista->array[p - 1];
+        p--;
+    }
+    lista->array[posicao] = elemento;
+    lista->ocupacao++;
+}
+
+int acessarPosicao(TLista const * const lista, int posicao) {
+    if (listaEstaVazia(lista)) return -1;
+    if (posicao < 0 || posicao >= lista->ocupacao) {
+        printf("Posicao invalida!\n");
+        return -1;
+    }
+    return lista->array[posicao];
+}
+
+void retirarPosicao(TLista * const lista, int posicao) {
+    if (listaEstaVazia(lista)) return;
+    if (posicao < 0 || posicao >= lista->ocupacao) {
+        printf("Posicao invalida!\n");
+        return;
+    }
+    while (posicao < lista->ocupacao - 1) {
+        lista->array[posicao] = lista->array[posicao + 1];
+        posicao++;
     }
     lista->ocupacao--;
 }

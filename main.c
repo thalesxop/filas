@@ -4,7 +4,7 @@
 
 int main() {
     TLista minhaLista;
-    int opcao, valor, tam;
+    int opcao, valor, tam, posicao;
 
     printf("Digite o tamanho maximo da lista: ");
     if (scanf("%d", &tam) != 1) {
@@ -27,14 +27,20 @@ int main() {
         printf("6 - Retirar do Fim\n");
         printf("============================\n");
 
+        printf("\n========= POSICAO ==========\n");
+        printf("7 - Inserir na posicao desejada\n");
+        printf("8 - Acessar na posicao desejada\n");
+        printf("9 - Retirar na posicao desejada\n");
+        printf("============================\n");
+
         printf("\n========== GERAL ===========\n");
         printf("10 - Mostrar Lista\n");
         printf("11 - Sair\n"); 
-        printf("============================\n");
+        printf("============================\n\n\n\n");
         
         printf("Escolha uma opcao: ");
         if (scanf("%d", &opcao) != 1) {
-            while (getchar() != '\n'); 
+            while (getchar() != '\n'); // Limpa buffer em caso de entrada invalida
             continue;
         }
 
@@ -47,9 +53,7 @@ int main() {
 
             case 2:
                 valor = acessarInicio(&minhaLista);
-                if (valor != -1) {
-                    printf("Elemento no inicio: %d\n", valor);
-                }
+                if (valor != -1) printf("Elemento no inicio: %d\n", valor);
                 break;
 
             case 3:
@@ -64,17 +68,36 @@ int main() {
 
             case 5:
                 valor = acessarFimLista(&minhaLista);
-                if (valor != -1) {
-                    printf("Elemento no fim: %d\n", valor);
-                }
+                if (valor != -1) printf("Elemento no fim: %d\n", valor);
                 break;
 
             case 6:
                 retirarFimlista(&minhaLista);
                 break;
 
+            case 7:
+                printf("Posicao desejada: ");
+                scanf("%d", &posicao);
+                printf("Valor para inserir: ");
+                scanf("%d", &valor);
+                inserirNaPosicao(&minhaLista, posicao, valor);
+                break;
+
+            case 8:
+                printf("Posicao para acessar: ");
+                scanf("%d", &posicao);
+                valor = acessarPosicao(&minhaLista, posicao);
+                if (valor != -1) printf("Valor na posicao %d: %d\n", posicao, valor);
+                break;
+
+            case 9:
+                printf("Posicao para retirar: ");
+                scanf("%d", &posicao);
+                retirarPosicao(&minhaLista, posicao);
+                break;
+
             case 10:
-                printf("Conteudo: ");
+                printf("Conteudo da Lista: ");
                 mostrarLista(&minhaLista);
                 break;
 

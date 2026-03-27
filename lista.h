@@ -9,71 +9,88 @@
  * @brief Estrutura que gerencia um array dinâmico como uma lista sequencial.
  */
 typedef struct {
-    int tamanho;    // Capacidade máxima
-    int ocupacao;   // Quantidade atual de elementos
-    int *array;     // Ponteiro para os dados
+    int tamanho;    // Capacidade máxima de elementos
+    int ocupacao;   // Quantidade atual de elementos na lista
+    int *array;     // Ponteiro para o vetor de inteiros
 } TLista;
 
-/* ========================================================================= */
+/* ================= GERENCIAMENTO E ESTADO ================= */
 
-// Função: Inicializa a lista alocando memória para o array e definindo o tamanho.
-// Parâmetros: ponteiro para a lista (TLista *) e tamanho máximo (int).
+// Função: Aloca memória para o array e define o tamanho inicial.
+// Parâmetros: ponteiro para a lista (TLista *) e tamanho desejado (int).
 // Retorno: Nenhum (void).
 void inicializarLista(TLista * const lista, int tamanho);
 
-// Função: Desaloca a memória do array e reseta a ocupação e o tamanho.
+// Função: Libera a memória alocada para o array e reseta a estrutura.
 // Parâmetros: ponteiro para a lista (TLista *).
 // Retorno: Nenhum (void).
 void liberarLista(TLista * const lista);
 
-// Função: Exibe o tamanho, a ocupação e o endereço de memória do array da lista.
+// Função: Verifica se a lista não possui nenhum elemento.
 // Parâmetros: ponteiro constante para a lista (const TLista *).
-// Retorno: Nenhum (void).
-void mostrarDadosLista(TLista const * const lista);
+// Retorno: 1 se estiver vazia, 0 caso contrário (int).
+int listaEstaVazia(TLista const * const lista);
 
-// Função: Percorre o array e imprime os elementos na tela no formato { 1, 2, 3 }.
+// Função: Verifica se a lista atingiu sua capacidade máxima.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: 1 se estiver cheia, 0 caso contrário (int).
+int listaEstaCheia(TLista const * const lista);
+
+// Função: Imprime todos os elementos da lista e informações técnicas.
 // Parâmetros: ponteiro constante para a lista (const TLista *).
 // Retorno: Nenhum (void).
 void mostrarLista(TLista const * const lista);
+void mostrarDadosLista(TLista const * const lista);
 
-// Função: Verifica se a lista não possui nenhum elemento inserido.
-// Parâmetros: ponteiro constante para a lista (const TLista *).
-// Retorno: 1 se estiver vazia, 0 se tiver elementos (int).
-int listaEstaVazia(TLista const * const lista);
+/* ================= OPERAÇÕES DE INÍCIO ================= */
 
-// Função: Verifica se a quantidade de elementos atingiu o limite máximo da lista.
-// Parâmetros: ponteiro constante para a lista (const TLista *).
-// Retorno: 1 se estiver cheia, 0 se houver espaço (int).
-int listaEstaCheia(TLista const * const lista);
-
-// Função: Insere um elemento na posição 0, deslocando os existentes para a direita.
-// Parâmetros: ponteiro para a lista (TLista *) e o valor a inserir (int).
+// Função: Insere um elemento na primeira posição, deslocando os demais.
+// Parâmetros: ponteiro para a lista (TLista *) e o valor (int).
 // Retorno: Nenhum (void).
 void inserirInicio(TLista * const lista, int elemento);
 
-// Função: Adiciona um elemento na última posição disponível da lista.
-// Parâmetros: ponteiro para a lista (TLista *) e o valor a inserir (int).
-// Retorno: Nenhum (void).
-void inserirFimLista(TLista * const lista, int elemento);
-
-// Função: Retorna o valor que está armazenado no primeiro índice (0) da lista.
+// Função: Retorna o valor do primeiro elemento da lista.
 // Parâmetros: ponteiro constante para a lista (const TLista *).
-// Retorno: O valor inteiro do início ou -1 se a lista estiver vazia (int).
+// Retorno: O valor inteiro ou -1 se a lista estiver vazia (int).
 int acessarInicio(const TLista *lista);
 
-// Função: Retorna o valor que está na última posição ocupada da lista.
-// Parâmetros: ponteiro constante para a lista (const TLista *).
-// Retorno: O valor inteiro do fim ou -1 se a lista estiver vazia (int).
-int acessarFimLista(TLista const * const lista);
-
-// Função: Remove o primeiro elemento e desloca todos os outros para a esquerda.
+// Função: Remove o primeiro elemento e reorganiza a lista.
 // Parâmetros: ponteiro para a lista (TLista *).
 // Retorno: Nenhum (void).
 void retirarInicio(TLista * const lista);
 
-// Função: Remove o último elemento apenas decrementando a contagem de ocupação.
+/* ================= OPERAÇÕES DE FIM ================= */
+
+// Função: Adiciona um elemento na última posição disponível.
+// Parâmetros: ponteiro para a lista (TLista *) e o valor (int).
+// Retorno: Nenhum (void).
+void inserirFimLista(TLista * const lista, int elemento);
+
+// Função: Retorna o valor do último elemento ocupado.
+// Parâmetros: ponteiro constante para a lista (const TLista *).
+// Retorno: O valor inteiro ou -1 se a lista estiver vazia (int).
+int acessarFimLista(TLista const * const lista);
+
+// Função: Remove o último elemento da lista.
 // Parâmetros: ponteiro para a lista (TLista *).
 // Retorno: Nenhum (void).
 void retirarFimlista(TLista * const lista);
+
+/* ================= OPERAÇÕES POR POSIÇÃO ================= */
+
+// Função: Insere um elemento em qualquer índice válido, deslocando os sucessores.
+// Parâmetros: ponteiro para a lista (TLista *), posição (int) e elemento (int).
+// Retorno: Nenhum (void).
+void inserirNaPosicao(TLista * const lista, int posicao, int elemento);
+
+// Função: Retorna o valor de um elemento em um índice específico.
+// Parâmetros: ponteiro constante para a lista (const TLista *), posição (int).
+// Retorno: O valor inteiro ou -1 se a posição for inválida (int).
+int acessarPosicao(TLista const * const lista, int posicao);
+
+// Função: Remove um elemento de um índice específico e reorganiza os sucessores.
+// Parâmetros: ponteiro para a lista (TLista *), posição (int).
+// Retorno: Nenhum (void).
+void retirarPosicao(TLista * const lista, int posicao);
 
 #endif
