@@ -47,7 +47,7 @@ void liberarLista(TLista * const lista){
  */
 void mostrarLista(TLista const * const lista){
     if(listaEstaVazia(lista)){
-        printf("{}\n");
+        printf("{ }\n");
         return;
     }
 

@@ -40,7 +40,7 @@ int listaEstaCheia(TLista const * const lista);
 // Parâmetros: ponteiro constante para a lista (const TLista *).
 // Retorno: Nenhum (void).
 void mostrarLista(TLista const * const lista);
-void mostrarDadosLista(TLista const * const lista);
+
 
 /* ================= OPERAÇÕES DE INÍCIO ================= */
 
